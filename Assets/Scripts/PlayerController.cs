@@ -6,13 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float horzInput;
-    public float jumpSpeed;
-    public float jumpInput;
+    public float jumpForce;
     public bool grounded;
+    private Rigidbody2D playerRB;
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Get the Rigid Body
+        playerRB = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -20,13 +21,15 @@ public class PlayerController : MonoBehaviour
     {
         //Get inputs
         horzInput = Input.GetAxis("Horizontal");
-        jumpInput = Input.GetAxis("Jump");
         //Move the player left/right
         transform.Translate(Vector2.right * horzInput * speed * Time.deltaTime);
         //Juuuump
         if(grounded == true)
         {
-            transform.Translate(Vector2.up * jumpInput * jumpSpeed * 0.3f);
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                playerRB.AddForce(Vector2.up * jumpForce);
+            }
         }
        
 
