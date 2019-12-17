@@ -21,10 +21,14 @@ public class Enemy : MonoBehaviour
         //Turn The Blaster
         if(CanSee == true)
         {
-           
+            Blaster.transform.LookAt(Player.transform.position);
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                Fire();
+            }
         }
     }
-
+     
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player")
@@ -39,5 +43,10 @@ public class Enemy : MonoBehaviour
         {
             CanSee = false;
         }
+    }
+
+    private void Fire()
+    {
+        Instantiate(Lazer, transform.position, Blaster.transform.rotation);
     }
 }

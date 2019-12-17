@@ -18,4 +18,5 @@ public class CameraController : MonoBehaviour
         //Move The Camera
         transform.position = Player.transform.position + Offset;
     }
+
 }
