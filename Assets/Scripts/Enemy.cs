@@ -22,10 +22,11 @@ public class Enemy : MonoBehaviour
         if(CanSee == true)
         {
             Blaster.transform.LookAt(Player.transform.position);
-            if (Input.GetKeyDown(KeyCode.LeftControl))
-            {
-                Fire();
-            }
+            InvokeRepeating("Fire", 1f, 5f);
+        }
+        else
+        {
+            CancelInvoke();
         }
     }
      

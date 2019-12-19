@@ -8,21 +8,23 @@ public class MoveForward : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine();
+        StartCoroutine("Despawn");
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime );
-        IEnumerator LoseTime()
-        {
-            while(true)
-            {
-                yield return new WaitForSeconds(1.5f);
-                Destroy(gameObject);
-            }
-        }
-        
+    }
+
+    private IEnumerator Despawn()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
     }
 }
