@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public bool CanSee;
     public GameObject Blaster;
     public  int speed = 5;
+    public Vector2 FireOffset = new Vector2(-5, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +23,11 @@ public class Enemy : MonoBehaviour
         if(CanSee == true)
         {
             Blaster.transform.LookAt(Player.transform.position);
-            InvokeRepeating("Fire", 1f, 5f);
+            Invoke("Fire", 5);
         }
         else
         {
-            CancelInvoke();
+            
         }
     }
      
@@ -48,6 +49,6 @@ public class Enemy : MonoBehaviour
 
     private void Fire()
     {
-        Instantiate(Lazer, transform.position, Blaster.transform.rotation);
+        Instantiate(Lazer, Blaster.transform.position, Blaster.transform.rotation);
     }
 }

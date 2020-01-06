@@ -8,13 +8,14 @@ public class MoveForward : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.Rotate(0, 90, 0);
         StartCoroutine("Despawn");
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime );
+        transform.Translate(Vector2.left * speed * Time.deltaTime );
     }
 
     private IEnumerator Despawn()
@@ -23,8 +24,11 @@ public class MoveForward : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        Destroy(gameObject);
+       if(collider.tag == "Ground")
+        {
+            Destroy(gameObject);
+        }
     }
 }
