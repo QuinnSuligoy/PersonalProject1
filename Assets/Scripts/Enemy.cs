@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         CanSee = false;
+        StartCoroutine("RepeatingFire");
     }
 
     // Update is called once per frame
@@ -23,7 +24,7 @@ public class Enemy : MonoBehaviour
         if(CanSee == true)
         {
             Blaster.transform.LookAt(Player.transform.position);
-            Invoke("Fire", 5);
+           
         }
         else
         {
@@ -50,5 +51,20 @@ public class Enemy : MonoBehaviour
     private void Fire()
     {
         Instantiate(Lazer, Blaster.transform.position, Blaster.transform.rotation);
+    }
+    private  IEnumerator RepeatingFire()
+    {
+        while(true)
+        {
+
+            if (CanSee == true)
+            {
+                yield return new WaitForSeconds(0.3f);
+                Fire();
+            }
+            yield return null;
+        }
+        
+       
     }
 }

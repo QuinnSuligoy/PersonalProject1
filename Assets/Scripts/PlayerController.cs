@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float horzInput;
     public float jumpForce;
     public bool grounded;
+    public float BlinkUnits;
+    public string Facing;
     private Rigidbody2D playerRB;
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,20 @@ public class PlayerController : MonoBehaviour
                 playerRB.AddForce(Vector2.up * jumpForce);
             }
         }
+        //LeftRight
+        if(horzInput > 0)
+        {
+            Facing = "Right";
+        }
+        else if(horzInput < 0)
+        {
+            Facing = "Left";
+        }
+        //Blink
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Blink();
+        }
        
 
         
@@ -42,6 +58,10 @@ public class PlayerController : MonoBehaviour
         {
             grounded = true;
         }
+        if(collider.tag == "Lazer")
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collider)
@@ -49,6 +69,18 @@ public class PlayerController : MonoBehaviour
         if(collider.tag == "Ground")
         {
             grounded = false;
+        }
+    }
+
+    private void Blink()
+    {
+        if(Facing == "Left")
+        {
+            transform.Translate(Vector2.left * BlinkUnits * Time.deltaTime);
+        }
+        else if(Facing == "Right")
+        {
+            transform.Translate(Vector2.right * BlinkUnits * Time.deltaTime);
         }
     }
 }
