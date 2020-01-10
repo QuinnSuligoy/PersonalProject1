@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     public bool CanSee;
     public GameObject Blaster;
     public  int speed = 5;
-    public Vector2 FireOffset = new Vector2(-5, 0);
+    
     // Start is called before the first frame update
     void Start()
     {

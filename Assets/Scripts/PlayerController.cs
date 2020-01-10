@@ -8,14 +8,18 @@ public class PlayerController : MonoBehaviour
     public float horzInput;
     public float jumpForce;
     public bool grounded;
-    public float BlinkUnits;
     public string Facing;
+    public float BlinkUnits;
     private Rigidbody2D playerRB;
+    public float Health;
+    public bool Invul;
     // Start is called before the first frame update
     void Start()
     {
         //Get the Rigid Body
         playerRB = GetComponent<Rigidbody2D>();
+        Health = 100;
+        StartCoroutine("InvulTimer");
     }
 
     // Update is called once per frame
@@ -42,11 +46,13 @@ public class PlayerController : MonoBehaviour
         {
             Facing = "Left";
         }
-        //Blink
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             Blink();
         }
+        
+       
+        
        
 
         
@@ -60,7 +66,15 @@ public class PlayerController : MonoBehaviour
         }
         if(collider.tag == "Lazer")
         {
-            Destroy(gameObject);
+            if (Invul == false)
+            {
+                Health -= 10;
+                Invul = true;
+            }
+        }
+        if(collider.tag == "HealthPack")
+        {
+            Health += 50;
         }
     }
 
@@ -76,11 +90,28 @@ public class PlayerController : MonoBehaviour
     {
         if(Facing == "Left")
         {
-            transform.Translate(Vector2.left * BlinkUnits * Time.deltaTime);
+            transform.Translate(Vector2.left * BlinkUnits);
         }
         else if(Facing == "Right")
         {
-            transform.Translate(Vector2.right * BlinkUnits * Time.deltaTime);
+            transform.Translate(Vector2.right * BlinkUnits);
         }
     }
+
+    private IEnumerator InvulTimer()
+    {
+        while(true)
+        {
+            if(Invul == true)
+            {
+                yield return new WaitForSeconds(1);
+                Invul = false;
+            }
+            yield return null;
+        }
+    }
+
+   
+
+    
 }
