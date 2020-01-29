@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
         playerRB = GetComponent<Rigidbody2D>();
         Health = 100;
         StartCoroutine("InvulTimer");
+        StartCoroutine("Jump");
     }
 
     // Update is called once per frame
@@ -30,23 +31,6 @@ public class PlayerController : MonoBehaviour
         horzInput = Input.GetAxis("Horizontal");
         //Move the player left/right
         transform.Translate(Vector2.right * horzInput * speed * Time.deltaTime);
-        //Juuuump
-        if(grounded == true)
-        {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                playerRB.AddForce(Vector2.up * jumpForce);
-            }
-        }
-        else if(grounded == false && secondJump == true)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                
-                playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                secondJump = false;
-            }
-        }
         //LeftRight
         if(horzInput > 0)
         {
@@ -120,9 +104,33 @@ public class PlayerController : MonoBehaviour
             }
             yield return null;
         }
+   
     }
 
-   
+   private IEnumerator Jump()
+    {
+        while (true)
+        {
+            if (grounded == true)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    playerRB.AddForce(Vector2.up * jumpForce);
+                }
+            }
+            else if (grounded == false && secondJump == true)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    playerRB.gravityScale = 0;
+                    playerRB.AddForce(Vector2.up * jumpForce);
+                    playerRB.gravityScale = 2;
+                    secondJump = false;
+                }
+            }
+            yield return null;
+        }
+    }
 
     
 }
