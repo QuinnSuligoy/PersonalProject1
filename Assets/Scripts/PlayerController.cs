@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRB;
     public float Health;
     public bool Invul;
+    public bool secondJump;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +36,15 @@ public class PlayerController : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 playerRB.AddForce(Vector2.up * jumpForce);
+            }
+        }
+        else if(grounded == false && secondJump == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                
+                playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                secondJump = false;
             }
         }
         //LeftRight
@@ -63,6 +73,7 @@ public class PlayerController : MonoBehaviour
         if(collider.tag == "Ground")
         {
             grounded = true;
+            secondJump = true;
         }
         if(collider.tag == "Lazer")
         {
