@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public float Health;
     public bool Invul;
     public bool secondJump;
+    public float Velocity;
+    private float realJumpForce;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Velocity = playerRB.velocity.y;
         //Get inputs
         horzInput = Input.GetAxis("Horizontal");
         //Move the player left/right
@@ -44,7 +47,6 @@ public class PlayerController : MonoBehaviour
         {
             Blink();
         }
-        
        
         
        
@@ -122,9 +124,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    playerRB.gravityScale = 0;
+                    
+                    realJumpForce = jumpForce - Velocity;
+                    Debug.Log(realJumpForce);
+                    playerRB.velocity = Vector2.zero;
                     playerRB.AddForce(Vector2.up * jumpForce);
-                    playerRB.gravityScale = 2;
                     secondJump = false;
                 }
             }
