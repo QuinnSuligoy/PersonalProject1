@@ -8,7 +8,8 @@ public class Enemy : MonoBehaviour
     public GameObject Lazer;
     public bool CanSee;
     public GameObject Blaster;
-    public  int speed = 5;
+    public int speed = 5;
+    public int EnemyHealth = 100; 
     
     // Start is called before the first frame update
     void Start()
@@ -26,9 +27,10 @@ public class Enemy : MonoBehaviour
             Blaster.transform.LookAt(Player.transform.position);
            
         }
-        else
+        if(EnemyHealth <= 0)
         {
-            
+            Destroy(gameObject);
+            Destroy(Blaster);
         }
     }
      
@@ -66,5 +68,10 @@ public class Enemy : MonoBehaviour
         }
         
        
+    }
+    public void TakeDmg(int dmgDone)
+    {
+        EnemyHealth -= dmgDone;
+        Debug.Log("EnemyHealth:" + EnemyHealth);
     }
 }

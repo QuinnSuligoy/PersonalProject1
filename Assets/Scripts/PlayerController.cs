@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public bool secondJump;
     public float Velocity;
     private float realJumpForce;
+    public 
     // Start is called before the first frame update
     void Start()
     {
@@ -124,9 +125,6 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    
-                    realJumpForce = jumpForce - Velocity;
-                    Debug.Log(realJumpForce);
                     playerRB.velocity = Vector2.zero;
                     playerRB.AddForce(Vector2.up * jumpForce);
                     secondJump = false;

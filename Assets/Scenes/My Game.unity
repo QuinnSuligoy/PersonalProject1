@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 916411009}
   - component: {fileID: 916411005}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: HealthPack
   m_TagString: HealthPack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -680,6 +680,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1336733353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1336733354}
+  - component: {fileID: 1336733355}
+  m_Layer: 0
+  m_Name: EnemyHurtBox
+  m_TagString: EnemyHurtBox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1336733354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336733353}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.07, y: -0.016, z: -0.5653568}
+  m_LocalScale: {x: 1.5337423, y: 0.64935064, z: 1.5337423}
+  m_Children: []
+  m_Father: {fileID: 1954840989}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1336733355
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336733353}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.046171427, y: 0.011529447}
+  serializedVersion: 2
+  m_Radius: 0.51157975
 --- !u!1 &1954840983
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +766,7 @@ MonoBehaviour:
   CanSee: 0
   Blaster: {fileID: 566312101}
   speed: 5
+  EnemyHealth: 100
 --- !u!58 &1954840985
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -822,7 +870,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.18, y: -2.35, z: 0.3}
   m_LocalScale: {x: 0.652, y: 1.54, z: 0.652}
-  m_Children: []
+  m_Children:
+  - {fileID: 1336733354}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -999,7 +1048,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.4677944, y: -2.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2132907342}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1024,6 +1074,7 @@ MonoBehaviour:
   Health: 0
   Invul: 0
   secondJump: 0
+  Velocity: 0
 --- !u!61 &2093596067
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1050,3 +1101,65 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.07809496}
   m_EdgeRadius: 0
+--- !u!1 &2132907341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2132907342}
+  - component: {fileID: 2132907344}
+  - component: {fileID: 2132907343}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2132907342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132907341}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.864, y: 0.011, z: -0.0546875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2093596065}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2132907343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132907341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0e35d26c457c214281fcd6f75c7adc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 10
+  InHurtBox: 0
+--- !u!58 &2132907344
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132907341}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.105373025, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5957937

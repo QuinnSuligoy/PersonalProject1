@@ -8,6 +8,7 @@ TagManager:
   - Lazer
   - Enemy
   - HealthPack
+  - EnemyHurtBox
   layers:
   - Default
   - TransparentFX
