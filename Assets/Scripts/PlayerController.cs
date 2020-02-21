@@ -7,21 +7,20 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float horzInput;
     public float jumpForce;
-    public bool grounded;
     public string Facing;
     public float BlinkUnits;
     private Rigidbody2D playerRB;
     public float Health;
     public bool Invul;
-    public bool secondJump;
     public float Velocity;
     private float realJumpForce;
-    public 
+    public GroundCheck GroundChecker;
     // Start is called before the first frame update
     void Start()
     {
         //Get the Rigid Body
         playerRB = GetComponent<Rigidbody2D>();
+        GroundChecker = GameObject.Find("GroundChecker").GetComponent<GroundCheck>();
         Health = 100;
         StartCoroutine("InvulTimer");
         StartCoroutine("Jump");
@@ -56,13 +55,8 @@ public class PlayerController : MonoBehaviour
     }
     //Ground Check
     private void OnTriggerEnter2D(Collider2D collider)
-    {  
-        if(collider.tag == "Ground")
-        {
-            grounded = true;
-            secondJump = true;
-        }
-        if(collider.tag == "Lazer")
+    {
+        if (collider.tag == "Lazer")
         {
             if (Invul == false)
             {
@@ -70,20 +64,11 @@ public class PlayerController : MonoBehaviour
                 Invul = true;
             }
         }
-        if(collider.tag == "HealthPack")
+        if (collider.tag == "HealthPack")
         {
             Health += 50;
         }
     }
-
-    private void OnTriggerExit2D(Collider2D collider)
-    {
-        if(collider.tag == "Ground")
-        {
-            grounded = false;
-        }
-    }
-
     private void Blink()
     {
         if(Facing == "Left")
@@ -114,20 +99,20 @@ public class PlayerController : MonoBehaviour
     {
         while (true)
         {
-            if (grounded == true)
+            if (GroundChecker.grounded == true)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     playerRB.AddForce(Vector2.up * jumpForce);
                 }
             }
-            else if (grounded == false && secondJump == true)
+            else if (GroundChecker.grounded == false && GroundChecker.secondJump == true)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     playerRB.velocity = Vector2.zero;
                     playerRB.AddForce(Vector2.up * jumpForce);
-                    secondJump = false;
+                    GroundChecker.secondJump = false;
                 }
             }
             yield return null;
