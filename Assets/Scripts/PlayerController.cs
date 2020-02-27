@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GroundCheck GroundChecker;
+    private Rigidbody2D playerRB;
+    public WallCheck WallCheck;
+
+    public PhysicsMaterial2D PhysicMat;
+
     public float speed;
     public float horzInput;
     public float jumpForce;
-    public string Facing;
     public float BlinkUnits;
-    private Rigidbody2D playerRB;
     public float Health;
-    public bool Invul;
     public float Velocity;
     private float realJumpForce;
-    public GroundCheck GroundChecker;
+
+    public bool Invul;
+
+    public string Facing;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
         //Get the Rigid Body
         playerRB = GetComponent<Rigidbody2D>();
         GroundChecker = GameObject.Find("GroundChecker").GetComponent<GroundCheck>();
+        WallCheck = GameObject.Find("WallDetecor").GetComponent<WallCheck>();
         Health = 100;
         StartCoroutine("InvulTimer");
         StartCoroutine("Jump");
@@ -43,10 +52,19 @@ public class PlayerController : MonoBehaviour
         {
             Facing = "Left";
         }
+        //Blink
         if (Input.GetKeyDown(KeyCode.E))
         {
             Blink();
         }
+
+        //WallCheckAndSlide
+        while(WallCheck.TouchingWall)
+        {
+            PhysicMat.friction = 10;
+        }
+
+
        
         
        
