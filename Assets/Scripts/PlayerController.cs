@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float BlinkUnits;
     public float Health;
     public float Velocity;
-    private float realJumpForce;
+    public float wallJumpForce;
 
     public bool Invul;
 
@@ -59,10 +59,14 @@ public class PlayerController : MonoBehaviour
         }
 
         //WallCheckAndSlide
-        while(WallCheck.TouchingWall)
+        if(WallCheck.TouchingWall)
         {
-            PhysicMat.friction = 10;
+            if (!Input.GetKeyDown(KeyCode.Space))
+            {
+                playerRB.velocity = playerRB.velocity / 5;
+            }
         }
+        
 
 
        
@@ -117,22 +121,46 @@ public class PlayerController : MonoBehaviour
     {
         while (true)
         {
-            if (GroundChecker.grounded == true)
+            if (!WallCheck.TouchingWall)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (GroundChecker.grounded == true)
                 {
-                    playerRB.AddForce(Vector2.up * jumpForce);
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        playerRB.AddForce(Vector2.up * jumpForce);
+                    }
+                }
+                else if (GroundChecker.grounded == false && GroundChecker.secondJump == true)
+                {
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        playerRB.gravityScale = 2;
+                        playerRB.velocity = Vector2.zero;
+                        playerRB.AddForce(Vector2.up * jumpForce);
+                        GroundChecker.secondJump = false;
+                    }
                 }
             }
-            else if (GroundChecker.grounded == false && GroundChecker.secondJump == true)
+            else if(WallCheck.TouchingWall)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if(Input.GetKeyDown(KeyCode.Space))
                 {
-                    playerRB.velocity = Vector2.zero;
-                    playerRB.AddForce(Vector2.up * jumpForce);
-                    GroundChecker.secondJump = false;
+                    if(Facing == "Left")
+                    {
+                        playerRB.AddForce(new Vector2(-0.5f, 0) * wallJumpForce, ForceMode2D.Impulse);
+                        playerRB.AddForce(new Vector2(0, 0.5f) * wallJumpForce, ForceMode2D.Impulse);
+                        Facing = "Right";
+
+                    }
+                    else if(Facing == "Right")
+                    {
+                        playerRB.AddForce(new Vector2(-0.5f,0) * wallJumpForce, ForceMode2D.Impulse);
+                        playerRB.AddForce(new Vector2(0,0.5f) * wallJumpForce, ForceMode2D.Impulse);
+                        Facing = "Left";
+                    }
+                            
                 }
-            }
+            }  
             yield return null;
         }
     }

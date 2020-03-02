@@ -22,7 +22,6 @@ public class WallCheck : MonoBehaviour
         if(collision.CompareTag("Ground"))
         {
             TouchingWall = true;
-            Debug.Log("Wall");
         }
     }
 
