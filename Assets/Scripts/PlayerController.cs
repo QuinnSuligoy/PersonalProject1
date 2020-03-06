@@ -42,7 +42,8 @@ public class PlayerController : MonoBehaviour
         //Get inputs
         horzInput = Input.GetAxis("Horizontal");
         //Move the player left/right
-        transform.Translate(Vector2.right * horzInput * speed * Time.deltaTime);
+        Vector2 pos = Vector2.right * speed * Time.deltaTime * horzInput;
+        playerRB.MovePosition((Vector2)transform.position + pos);
         //LeftRight
         if(horzInput > 0)
         {
