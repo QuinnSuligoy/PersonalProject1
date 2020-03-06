@@ -147,9 +147,9 @@ public class PlayerController : MonoBehaviour
                 {
                     if(Facing == "Left")
                     {
-                        playerRB.AddForce(new Vector2(-0.5f, 0) * wallJumpForce, ForceMode2D.Impulse);
+                        playerRB.AddForce(new Vector2(0.5f, 0) * wallJumpForce, ForceMode2D.Impulse);
                         playerRB.AddForce(new Vector2(0, 0.5f) * wallJumpForce, ForceMode2D.Impulse);
-                        Facing = "Right";
+                        Facing = "Right"; 
 
                     }
                     else if(Facing == "Right")
