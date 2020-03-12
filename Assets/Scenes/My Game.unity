@@ -1355,7 +1355,7 @@ MonoBehaviour:
   GroundChecker: {fileID: 0}
   WallCheck: {fileID: 0}
   PhysicMat: {fileID: 0}
-  speed: 10
+  speed: 500
   horzInput: 0
   jumpForce: 600
   BlinkUnits: 5
@@ -1364,6 +1364,7 @@ MonoBehaviour:
   wallJumpForce: 50
   Invul: 0
   Facing: 
+  velocity: {x: 0, y: 0}
 --- !u!1 &2107732192
 GameObject:
   m_ObjectHideFlags: 0

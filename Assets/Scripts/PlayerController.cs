@@ -21,8 +21,10 @@ public class PlayerController : MonoBehaviour
     public bool Invul;
 
     public string Facing;
-    
-    
+
+    public Vector2 velocity;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,12 +40,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Velocity = playerRB.velocity.y;
+        //Move the player left and right
+        Vector2 pos = Vector2.right * speed * Time.deltaTime * horzInput;
+        velocity = playerRB.velocity;
+        velocity.x = pos.x;
+        playerRB.velocity = velocity;
+
+
         //Get inputs
         horzInput = Input.GetAxis("Horizontal");
-        //Move the player left/right
-        Vector2 pos = Vector2.right * speed * Time.deltaTime * horzInput;
-        playerRB.MovePosition((Vector2)transform.position + pos);
+        
         //LeftRight
         if(horzInput > 0)
         {
